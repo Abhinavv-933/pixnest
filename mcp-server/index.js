@@ -1,15 +1,3 @@
-/**
- * Pixnest MCP Server
- *
- * Provides 3 tools to Claude Desktop:
- *   1. list_vault   — list folders and images at root or inside a folder
- *   2. create_folder — create a new folder at root or nested inside a parent
- *   3. search_assets — search folders and images by name keyword
- *
- * Authentication: logs in once with credentials stored in .env,
- * caches the JWT token, and attaches it to every API request.
- */
-
 const { McpServer }         = require('@modelcontextprotocol/sdk/server/mcp.js');
 const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
 const { z }    = require('zod');
@@ -17,7 +5,7 @@ const axios    = require('axios');
 const fs       = require('fs');
 const path     = require('path');
 
-// ─── Inline .env Loader ──────────────────────────────────────────────────────
+//Inline .env Loader 
 // Reads .env from the same directory as this file; ignores missing file.
 const envPath = path.join(__dirname, '.env');
 if (fs.existsSync(envPath)) {
@@ -34,14 +22,12 @@ if (fs.existsSync(envPath)) {
     });
 }
 
-// ─── Config ──────────────────────────────────────────────────────────────────
-
+// Config 
 const API_BASE = process.env.PIXNEST_API_URL || 'http://localhost:5000/api';
 const EMAIL    = process.env.PIXNEST_EMAIL    || 'your@email.com';
 const PASSWORD = process.env.PIXNEST_PASSWORD || 'yourpassword';
 
-// ─── Auth State ──────────────────────────────────────────────────────────────
-
+//Auth State 
 let cachedToken = null;
 
 async function getToken() {
@@ -69,17 +55,17 @@ function apiClient() {
   };
 }
 
-// ─── MCP Server ──────────────────────────────────────────────────────────────
+// MCP Server 
 
 const server = new McpServer({
   name: 'pixnest',
   version: '1.0.0',
 });
 
-// ────────────────────────────────────────────────────────────────────────────
+
 // Tool 1: list_vault
 // Lists all folders and images at the root level or inside a specific folder.
-// ────────────────────────────────────────────────────────────────────────────
+
 server.tool(
   'list_vault',
   'List folders and images inside your Pixnest vault. Pass a folderId to browse inside a specific folder, or omit it to see root-level contents.',
@@ -140,10 +126,9 @@ server.tool(
   }
 );
 
-// ────────────────────────────────────────────────────────────────────────────
 // Tool 2: create_folder
 // Creates a new folder at root or inside an existing parent folder.
-// ────────────────────────────────────────────────────────────────────────────
+
 server.tool(
   'create_folder',
   'Create a new folder in your Pixnest vault. Optionally nest it inside an existing folder by providing a parentId.',
@@ -171,10 +156,10 @@ server.tool(
   }
 );
 
-// ────────────────────────────────────────────────────────────────────────────
+
 // Tool 3: search_assets
 // Searches all folders and images in the vault by name keyword.
-// ────────────────────────────────────────────────────────────────────────────
+
 server.tool(
   'search_assets',
   'Search your Pixnest vault for folders and images by name. Returns all matches containing the keyword (case-insensitive).',
@@ -225,7 +210,6 @@ server.tool(
   }
 );
 
-// ─── Start ───────────────────────────────────────────────────────────────────
 
 async function main() {
   // Eagerly authenticate so we fail fast on bad credentials
