@@ -16,7 +16,6 @@ app.use(
       "http://localhost:5173",
       "https://pixnest-kappa.vercel.app"
     ],
-    credentials: true
   })
 );
 app.use(express.json());
