@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://pixnest.abd.vercel.app"
+      "https://pixnest-kappa.vercel.app/"
     ],
     credentials: true
   })
