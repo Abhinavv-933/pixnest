@@ -1,0 +1,293 @@
+:root {
+  --bg-color: #080810;
+  --surface-color: #12121f;
+  --border-color: #1e1e35;
+  --border-hover: #2e2e4e;
+  
+  --primary-color: #7c6bff;
+  --primary-glow: rgba(124, 107, 255, 0.4);
+  --secondary-color: #ff6b9d;
+  --secondary-glow: rgba(255, 107, 157, 0.4);
+  
+  --text-primary: #f0f0ff;
+  --text-muted: #6b6b8a;
+  --text-dark: #0c0c14;
+  
+  --font-headings: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(124, 107, 255, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 107, 157, 0.05) 0px, transparent 50%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Custom Input Styles */
+input, select, textarea {
+  font-family: var(--font-body);
+  background: rgba(18, 18, 31, 0.8);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 12px 16px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* Glassmorphism Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 10, 0.75);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-content {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--primary-glow);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 12px var(--secondary-glow);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-danger {
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.btn-danger:hover {
+  background: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes mesh-shift {
+  0% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%;
+    transform: translate(15px, -20px) scale(1.1) rotate(120deg);
+  }
+  66% {
+    border-radius: 50% 60% 30% 70% / 60% 30% 70% 40%;
+    transform: translate(-15px, 20px) scale(0.9) rotate(240deg);
+  }
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: translate(0, 0) scale(1) rotate(360deg);
+  }
+}
+
+/* Card Hover Transitions and Triggers */
+.folder-card {
+  transition: all var(--transition-normal) !important;
+}
+.folder-card:hover {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 20px var(--primary-glow);
+  transform: translateY(-4px);
+}
+.folder-card .delete-btn {
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+.folder-card:hover .delete-btn {
+  opacity: 1;
+}
+.folder-card .delete-btn:hover {
+  color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.15);
+}
+
+.image-card {
+  transition: all var(--transition-normal) !important;
+}
+.image-card:hover {
+  border-color: var(--secondary-color) !important;
+  box-shadow: 0 0 20px var(--secondary-glow);
+  transform: translateY(-4px);
+}
+.image-card .image {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.image-card:hover .image {
+  transform: scale(1.05);
+}
+.image-card:hover .image-overlay {
+  opacity: 1 !important;
+}
+.image-card .image-delete-btn {
+  transition: all var(--transition-fast) !important;
+}
+.image-card .image-delete-btn:hover {
+  background: #ff4d4d !important;
+  color: #fff !important;
+}
+
+/* Navigation Button Glows */
+.back-btn {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  background: rgba(124, 107, 255, 0.08) !important;
+  box-shadow: 0 0 10px rgba(124, 107, 255, 0.35), 0 0 20px rgba(124, 107, 255, 0.15) !important;
+  transition: all var(--transition-fast) !important;
+  font-weight: 600 !important;
+}
+.back-btn:hover {
+  background: rgba(124, 107, 255, 0.18) !important;
+  box-shadow: 0 0 16px rgba(124, 107, 255, 0.55), 0 0 32px rgba(124, 107, 255, 0.25) !important;
+  transform: translateX(-3px);
+}
+
+.logout-btn {
+  border-color: rgba(255, 77, 77, 0.7) !important;
+  color: #ff4d4d !important;
+  background: rgba(255, 77, 77, 0.07) !important;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.3), 0 0 20px rgba(255, 77, 77, 0.12) !important;
+  transition: all var(--transition-fast) !important;
+  font-weight: 600 !important;
+}
+.logout-btn:hover {
+  background: rgba(255, 77, 77, 0.16) !important;
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 16px rgba(255, 77, 77, 0.5), 0 0 32px rgba(255, 77, 77, 0.22) !important;
+}
